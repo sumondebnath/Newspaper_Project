@@ -12,6 +12,7 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ class RegistrationView(FormView):
         # login(self.request, user)
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        confirm_link = f"https://newshub-orxl.onrender.com/account/active/{uid}/{token}"
+        confirm_link = f"https://newshub-orxl.onrender.com/accounts/active/{uid}/{token}"
         email_subject = "Confirm Your Email."
         email_body = render_to_string("email.html", {"confirm_link":confirm_link})
         email = EmailMultiAlternatives(email_subject, "", to=[user.email])
@@ -50,7 +51,7 @@ def activate(request, uid64, token):
         user.save()
         return redirect("login")
     else:
-        return redirect("registration")
+        return redirect("register")
 
 
 def LogOut(request):

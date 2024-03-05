@@ -4,6 +4,8 @@ from article.models import Article, Rating
 from django.views.generic import FormView, View, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import Avg
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -29,7 +31,9 @@ class ArticleView(View):
                 print(request.POST)
                 return redirect("home")
         return render(request, self.template_name, {"form":form})
-    
+
+
+@login_required
 def SetImage(request, id):
     
     if request.method == "POST":
@@ -74,7 +78,7 @@ class Details(DetailView):
 # def AvarageRating()
 
 
-class EditArticle(UpdateView):
+class EditArticle(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = ArticleForm
     template_name = "articles.html"
@@ -82,6 +86,7 @@ class EditArticle(UpdateView):
     success_url = reverse_lazy("home")
 
 
+@login_required
 def DeleteArticle(request, id):
     article = Article.objects.get(pk=id)
     article.delete()

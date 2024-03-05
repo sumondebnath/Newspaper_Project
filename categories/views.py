@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from categories.models import Category
 from article.models import Article
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -12,7 +13,7 @@ from article.models import Article
 #     categories = Category.objects.all()
 #     return render(request, "index.html", {"categories":categories, "articles":articles})
 
-
+@login_required
 def Categories(request, slug_cate = None):
     articles = Article.objects.all()
     if slug_cate is not None:
