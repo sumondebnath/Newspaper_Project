@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'style.css' %}"> -->
+
+<style>
+    .reg-cont{
+        width: 70%;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 200px;
+        margin-top: 100px;
+    }
+    .form-container form div{
+        padding: 10px 20px;
+    }
+    .form-container form button{
+        margin-left: 28px;
+    }
+    .plog{
+        padding: 10px;
+        margin-left: 20px;
+    }
+</style>
+
+
+
+<div class="reg-cont container bg-info">
+    <div>
+        <h1 class="text-white">Register here</h1>
+    </div>
+    <div class="form-container">
+        <form method="post" action="">
+            {% csrf_token %}
+            {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
+            <div >
+                <label  for="{{ form.username.id_for_label }}">
+                    {{ form.username }}
+                </label>{% if form.username.errors %} {% for error in form.username.errors %}
+                <p>{{ error }}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+            <div >
+                <label  for="{{ form.first_name.id_for_label }}">
+                    <!-- {{ form.first_name.label }} -->
+                </label> {{ form.first_name }} {% if form.first_name.errors %} {% for error in form.first_name.errors %}
+                <p>{{ error }}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+            <div >
+                <label  for="{{ form.last_name.id_for_label }}">
+                    <!-- {{ form.last_name.label }} -->
+                </label> {{ form.last_name }} {% if form.last_name.errors %} {% for error in form.last_name.errors %}
+                <p>{{ error }}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+            <div >
+                <label  for="{{ form.email.id_for_label }}">
+                    <!-- {{ form.email.label }} -->
+                </label> {{ form.email }} {% if form.email.errors %} {% for error in form.email.errors %}
+                <p>{{ error }}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+            <div >
+                <label  for="{{ form.password1.id_for_label }}">
+                    <!-- {{ form.password1.label }} -->
+                </label> {{ form.password1 }} {% if form.password1.errors %} {% for error in form.password1.errors %}
+                <p>{{ error }}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+            <div >
+                <label  for="{{ form.password2.id_for_label }}">
+                    <!-- {{ form.password2.label }} -->
+                </label> {{ form.password2 }} {% if form.password2.errors %} {% for error in form.password2.errors %}
+                <p>{{ error }}</p>
+                {% endfor %} {% endif %}
+            </div>
+
+            <button class="btn btn-success" type="submit">Register</button>
+            <p class="plog">Already have an account <a href="{% url 'login' %}">Login</a></p>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

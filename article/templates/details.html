@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <style>
+        .rating{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <h3 >{{article.headline}}</h3>
+        {% if article.image %}
+        <img class="items-center mt-4" src="{{article.image.url}}" alt="article-image">
+        {% else %}
+        <h5>No Image Found</h5>
+        {% endif %}
+        <br>
+        {% if request.user.is_staff or request.user.is_superuser %}
+        <a class="btn btn-primary mt-5" href="{% url 'set_image' article.id %}">Set Image</a>
+        {% endif %}
+        <h5 class="text-end">{{article.publish_date}}</h5>
+        <p class="mt-5">{{article.body}}</p>
+
+    </div>
+    {% if request.user.is_staff or request.user.is_superuser %}
+    <div class="d-flex container gap-4 mt-5">
+        <div>
+            <a class="btn btn-warning" href="{% url 'edit_article' article.id %}">Edit Post</a>
+        </div>
+        <div>
+            <a class="btn btn-danger" href="{% url 'delete_article' article.id %}">Delete Post</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="rating container gap-5 mt-5">
+        <div >
+            <h2>avarage review</h2>
+            {% for rating in ratings %}
+            <h3>{{rating}}</h3>
+            {% endfor %}
+        </div>
+
+        <div>
+            <h4 class="mb-3">Rating Here</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{rating_form}}
+                <button class="btn btn-primary mt-3">Send</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

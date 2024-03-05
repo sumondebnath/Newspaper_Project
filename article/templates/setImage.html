@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+    .imgset{
+        margin-top: 100px;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+</style>
+
+<div class="container imgset bg-info">
+    <div>
+        <h3 class="text-light">Set Article Image</h3>
+    </div>
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
+                <div >
+                    <label  for="{{ form.image.id_for_label }}">
+                        {{ form.image.label }}
+                    </label>
+                    <br>
+                    {{ form.image }}{% if form.iamge.errors %} {% for error in form.image.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %} {% endif %}
+                </div>
+            <button class="btn btn-primary mt-4" type="submit">SET</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

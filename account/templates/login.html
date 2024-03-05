@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+    .log-cont{
+        width: 70%;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 100px;
+        gap: 200px;
+    }
+    .form-cont form div{
+        padding: 10px 20px;
+    }
+    .form-cont form button{
+        margin-left: 23px;
+    }
+</style>
+
+<div class="log-cont container bg-info">
+    <div>
+        <h1 class="text-white">Log In here</h1>
+    </div>
+    <div class="form-cont">
+        <form action="" method="post">
+            {% csrf_token %}
+            <!-- {{form}} -->
+            {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
+                <div >
+                    <label  for="image">
+                        {{ form.username.label }}
+                    </label>
+                    <br>
+                    <input type="file" name="image" id="image">
+                    {{ form.username }}{% if form.username.errors %} {% for error in form.username.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %} {% endif %}
+                </div>
+    
+                <div >
+                    <label  for="{{ form.password.id_for_label }}">
+                        {{ form.password.label }}
+                    </label>
+                    <br>
+                    {{ form.password }} {% if form.password.errors %} {% for error in form.password.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %} {% endif %}
+                </div>
+            <button type="submit" class="btn btn-success">login</button>
+            <p class="ms-3">Forget Password? <a href="{% url 'changepassword' %}">Click Here</a></p>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock %}
