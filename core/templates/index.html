@@ -20,6 +20,16 @@
     }
     .news-tag :hover{
         text-decoration: underline;
+        color: blue;
+    }
+    .news-container{
+        margin-top: 50px;
+        padding: 50px;
+    }
+    .news-container .news-title h2{
+        font-weight: bold;
+        color: rgb(16, 32, 27);
+        text-decoration: underline;
     }
 </style>
 
@@ -91,7 +101,7 @@
     </div>
 </div>
 
-<div class="cat-container container mt-5">
+<!-- <div class="cat-container container mt-5">
     <div>
         <h2>Categories</h2>
     </div>
@@ -100,11 +110,14 @@
         <a class="btn btn-secondary" href="{% url 'category_slug' category.slug %}">{{category.name}}</a>
         {% endfor %}
     </div>
-</div>
+</div> -->
 
-<div class="container mt-4">
+<div class="news-container container">
+    <div class="news-title text-center mb-4">
+        <h2>News</h2>
+    </div>
     {% for article in articles %}
-    <div>
+    <div class="mt-2">
         <p class="news-tag"><a href="{% url 'detail' article.id %}">{{article.headline | truncatechars:50}}</a></p>
     </div>
     {% endfor %}

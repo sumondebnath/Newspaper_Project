@@ -27,9 +27,9 @@ urlpatterns = [
     path("", Home, name="home"),
     path("accounts/", include("account.urls")),
     path("article/", include("article.urls")),
-    # path("categorie/", include("categories.urls")),
+    path("categories/", include("categories.urls")),
     # path("categories/", CategoryView, name="category"),
-    path("categories/<slug:slug_cate>/", Home, name="category_slug"),
+    # path("categories/<slug:slug_cate>/", Home, name="category_slug"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -17,16 +17,9 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'article' %}">Article</a>
               </li>
               {% endif %}
-              <div class="dropdown">
-                <li class="dropdown-toggle p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Categories
-                </li>
-                <ul class="dropdown-menu">
-                  {% for categori in categories %}
-                  <li><a class="dropdown-item" href="">{{categori.name}}</a></li>
-                  {% endfor %}
-                </ul>
-              </div>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'categories' %}">Categories</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">About</a>
               </li>
@@ -36,8 +29,8 @@
             </ul>
             <div class="d-flex gap-3">
                 {% if request.user.is_authenticated %}
-                <a class="btn btn-outline-success" type="submit">Profile</a>
-              <a class="btn btn-outline-success" type="submit" href="{% url 'logout' %}">Logout</a>
+                  <a class="btn btn-outline-success" type="submit">Profile</a>
+                  <a class="btn btn-outline-success" type="submit" href="{% url 'logout' %}">Logout</a>
               {% else %}
               <a class="btn btn-outline-success" type="submit" href="{% url 'login' %}">Login</a>
               <a class="btn btn-outline-success" type="submit" href="{% url 'register' %}">Register</a>

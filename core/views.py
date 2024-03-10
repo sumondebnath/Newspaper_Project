@@ -19,10 +19,6 @@ from article.models import Article
 
 # Create your views here.
 
-def Home(request, slug_cate = None):
+def Home(request):
     articles = Article.objects.all()
-    if slug_cate is not None:
-        category = Category.objects.get(slug = slug_cate)
-        articles = Article.objects.filter(category=category)
-    categories = Category.objects.all()
-    return render(request, "index.html", {"categories":categories, "articles":articles})
+    return render(request, "index.html", {"articles":articles})

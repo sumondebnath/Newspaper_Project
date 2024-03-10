@@ -13,7 +13,13 @@ from django.contrib.auth.decorators import login_required
 #     categories = Category.objects.all()
 #     return render(request, "index.html", {"categories":categories, "articles":articles})
 
-@login_required
+
+# def Categories(request):
+#     categories = Category.objects.all()
+#     return render(request, "navber.html", {"categories":categories})
+
+
+# @login_required
 def Categories(request, slug_cate = None):
     articles = Article.objects.all()
     if slug_cate is not None:

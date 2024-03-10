@@ -2,7 +2,62 @@
 
 
 {% block content %}
-{% for article in articles %}
-<h3>{article.headline}</h3>
-{% endfor %}
+
+<style>
+.category-container{
+    gap: 100px;
+    height: 100vh;
+}
+.category-left{
+    width: 230px;
+    padding: 10px 40px;
+    /* border: 1px solid gray; */
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+}
+.category-left a{
+    margin-top: 8px;
+    text-decoration: none;
+    color: black;
+}
+.category-left a:hover{
+    text-decoration: underline;
+    color: blue;
+    font-weight: bold;
+}
+.category-right p a{
+    text-decoration: none;
+    color: black;
+}
+.category-right p a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+</style>
+
+
+
+    <div class="category-container container d-flex mt-5">
+        <div class="category-left">
+            <!-- <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categories
+                </a>
+              
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    {% for category in categories %}
+                    <li><a class="dropdown-item" href="{% url 'category_slug' category.slug %}">{{category.name | truncatechars:150}}</a></li>
+                    {% endfor %}
+                </ul>
+              </div> -->
+                <a href="{% url 'categories' %}">All</a>
+                {% for category in categories %}
+                    <a class="dropdown-item" href="{% url 'category_slug' category.slug %}">{{category.name}}</a>
+                {% endfor %}
+        </div>
+        <div class="category-right">
+             {% for article in articles %}
+             <p><a href="{% url 'detail' article.id %}">{{article.headline | truncatechars:150}}</a></p>
+             {% endfor %}
+        </div>
+    </div>
 {% endblock %}
