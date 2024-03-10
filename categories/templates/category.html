@@ -5,12 +5,14 @@
 
 <style>
 .category-container{
+    margin-top: 100px;
     gap: 100px;
-    height: 100vh;
+    /* height: 100vh; */
 }
 .category-left{
     width: 230px;
     padding: 10px 40px;
+    /* height: 100vh; */
     /* border: 1px solid gray; */
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
@@ -24,6 +26,12 @@
     color: blue;
     font-weight: bold;
 }
+.cat-right{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: center;
+}
 .category-right p a{
     text-decoration: none;
     color: black;
@@ -36,27 +44,24 @@
 
 
 
-    <div class="category-container container d-flex mt-5">
+    <div class="category-container container d-flex">
         <div class="category-left">
-            <!-- <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  Categories
-                </a>
-              
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    {% for category in categories %}
-                    <li><a class="dropdown-item" href="{% url 'category_slug' category.slug %}">{{category.name | truncatechars:150}}</a></li>
-                    {% endfor %}
-                </ul>
-              </div> -->
                 <a href="{% url 'categories' %}">All</a>
                 {% for category in categories %}
                     <a class="dropdown-item" href="{% url 'category_slug' category.slug %}">{{category.name}}</a>
                 {% endfor %}
         </div>
-        <div class="category-right">
+        <div class="category-right cat-right">
              {% for article in articles %}
-             <p><a href="{% url 'detail' article.id %}">{{article.headline | truncatechars:150}}</a></p>
+             <!-- <p><a href="{% url 'detail' article.id %}">{{article.headline | truncatechars:150}}</a></p> -->
+             <div class="card" style="width: 18rem;">
+                <img src="{{article.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ article.headline | truncatechars:50}}</h5>
+                  <p class="card-text">{{ article.body | truncatechars:150}}</p>
+                  <a href="{% url 'detail' article.id %}" class="btn btn-primary">Details</a>
+                </div>
+              </div>
              {% endfor %}
         </div>
     </div>

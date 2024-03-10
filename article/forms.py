@@ -7,23 +7,23 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = ["user", "category", "headline", "body"]
 
-    # def save(self, commit=True):
-    #     user = super().save(commit=False)
-    #     if commit == True:
-    #         user.save()
-    #         category = self.cleaned_data.get("category")
-    #         headline = self.cleaned_data.get("headline")
-    #         body = self.cleaned_data.get("body")
-    #         image = self.cleaned_data.get("image")
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit == True:
+            user.save()
+            category = self.cleaned_data.get("category")
+            headline = self.cleaned_data.get("headline")
+            body = self.cleaned_data.get("body")
+            image = self.cleaned_data.get("image")
 
-    #         Article.objects.create(
-    #             user = user,
-    #             category = category,
-    #             headline = headline,
-    #             body = body,
-    #             image = image,
-    #         )
-    #     return user
+            Article.objects.create(
+                user = user,
+                category = category,
+                headline = headline,
+                body = body,
+                image = image,
+            )
+        return user
         
 class ImageForm(forms.ModelForm):
     class Meta:

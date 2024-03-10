@@ -37,14 +37,13 @@ class ArticleView(View):
 def SetImage(request, id):
     
     if request.method == "POST":
-        article = Article.objects.get(pk = id)
+        article = Article.objects.get(id = id)
         form = ImageForm(request.POST, request.FILES)
         
         if form.is_valid():
             print(request.POST)
             article.image = form.cleaned_data['image']
-            print(article.image, "hi")
-            article.save()
+            article.image.save()
             return redirect("home")
     else:
         form = ImageForm()

@@ -26,13 +26,12 @@
             {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
 
             <div >
-                <label  for="{{ form.user.id_for_label }}">
-                    {{ form.user.label }}
-                </label>
+                <label  for="{{ form.user.label }}">{{ form.user.label }}</label>
+                <input type="text" name="{{form.user}}" id="{{ form.user.label }}">
                 <br>
-                {{ form.user }} {% if form.user.errors %}
+                <!-- {{ form.user }} {% if form.user.errors %}
                 <p>{{ errors | striptags }}</p>
-                {% endif %}
+                {% endif %} -->
             </div>
 
             <div >
@@ -45,32 +44,7 @@
                 {% endif %}
             </div>
 
-            <div >
-                <label  for="{{ form.headline.id_for_label }}">
-                    {{ form.headline.label }}
-                </label>
-                <br>
-                {{ form.headline }} {% if form.headline.errors %} <p>{{ errors | striptags }}</p>
-                {% endif %}
-            </div>
-
-            <div >
-                <label  for="{{ form.body.id_for_label }}">
-                    {{ form.body.label }}
-                </label>
-                <br>
-                {{ form.body }} {% if form.body.errors %} <p>{{ errors | striptags }}</p>
-                {% endif %}
-            </div>
-
-            <div >
-                <label  for="{{ form.image.id_for_label }}">
-                    {{ form.image.label }}
-                </label>
-                <br>
-                {{ form.image }} {% if form.image.errors %} <p>{{ errors | striptags }}</p>
-                {% endif %}
-            </div>
+            
             <button class="btn btn-warning mt-2" type="submit">Post</button>
         </form>
     </div>

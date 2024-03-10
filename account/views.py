@@ -25,7 +25,7 @@ class RegistrationView(FormView):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
-        # print(user)
+        # print(user.username)
         # login(self.request, user)
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
