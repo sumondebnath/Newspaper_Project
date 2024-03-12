@@ -26,6 +26,13 @@
     color: blue;
     font-weight: bold;
 }
+.card{
+    overflow: hidden;
+}
+.cate-image{
+    width: 300px;
+    height: 200px;
+}
 .cat-right{
     display: flex;
     flex-wrap: wrap;
@@ -37,6 +44,18 @@
     color: black;
 }
 .category-right p a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+p .a-link{
+    text-decoration: none;
+    color: black;
+}
+.link-div{
+    margin-top: 100px;
+    padding-left: 100px;
+}
+p .a-link:hover{
     text-decoration: underline;
     color: blue;
 }
@@ -55,14 +74,24 @@
              {% for article in articles %}
              <!-- <p><a href="{% url 'detail' article.id %}">{{article.headline | truncatechars:150}}</a></p> -->
              <div class="card" style="width: 18rem;">
-                <img src="{{article.image.url}}" class="card-img-top" alt="...">
+                {% if article.image %}
+                <img class="cate-image" src="{{article.image.url}}" class="card-img-top" alt="...">
+                {% else %}
+                <h2>No Image Found</h2>
+                {% endif %}
                 <div class="card-body">
                   <h5 class="card-title">{{ article.headline | truncatechars:50}}</h5>
-                  <p class="card-text">{{ article.body | truncatechars:150}}</p>
+                  <p class="card-text">{{ article.body | truncatechars:100}}</p>
                   <a href="{% url 'detail' article.id %}" class="btn btn-primary">Details</a>
                 </div>
               </div>
              {% endfor %}
         </div>
+        
+    </div>
+    <div class="link-div container">
+        {% for article in articles %}
+        <p><a class="a-link" href="{% url 'detail' article.id %}">{{ article.headline | truncatechars:50}}</a></p>
+        {% endfor %}
     </div>
 {% endblock %}

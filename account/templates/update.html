@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- <link rel="stylesheet" href="{% static 'style.css' %}"> -->
+
+<style>
+    .reg-cont{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .form-container{
+        width: 60%;
+        height: 580px;
+        margin-top: 80px;
+        padding: 20px 100px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        border-radius: 20px;
+    }
+    .form-container .input_section{
+        width: 70%;
+        height: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        margin-top: 8px;
+    }
+</style>
+
+
+
+<div class="reg-cont container">
+    <div class="form-container">
+        <h1 class="text-dark mt-4 text-center">Update Your Details</h1>
+        <hr>
+        <form method="post" action="" novalidate>
+            {% csrf_token %}
+            {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
+            {% for field in form %}
+              <div class="form-input">
+                <label for="{{ field.id }}" class="input_title">{{ field.label_tag }}</label>
+                <br>
+                <input type="{{ field.field.widget.input_type }}"
+                       name="{{ field.name }}"
+                       class="input_section"
+                       {% if field.value %} value="{{ field.value }}"{% endif %}
+                       {% if field.field.required %} required {% endif %}>
+                {% if field.errors %}
+                  <small class="error">{{ field.errors|striptags }}</small>
+                {% endif %}
+              </div>
+            {% endfor %}
+              <hr>
+            <button class="btn btn-success mt-3" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

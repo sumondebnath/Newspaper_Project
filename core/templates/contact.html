@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<style>
+    .contact-container{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    input{
+        width: 350px;
+        height: 40px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border: none;
+        margin-top: 5px;
+    }
+    label{
+        margin-top: 5px;
+        font-style: italic;
+    }
+    textarea{
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border: none;
+        margin-top: 5px;
+    }
+    button{
+        width: 200px;
+        height: 40px;
+        background-color: rgb(18, 105, 105);
+        color: whitesmoke;
+        margin-top: 5px;
+    }
+    button:hover{
+        background-color: rgb(167, 228, 228);
+        color: rgb(5, 63, 41);
+        border: none;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="contact-container container">
+    <div>
+        <form action="">
+            <div>
+                <label for="">Name</label>
+                <br>
+                <input type="text" required>
+            </div>
+            <div>
+                <label for="">Email</label>
+                <br>
+                <input type="text" required>
+            </div>
+            <div>
+                <label for="">Subject</label>
+                <br>
+                <input type="text" required>
+            </div>
+            <div>
+                <label for="">Description</label>
+                <br>
+                <textarea name="Comment" id="" cols="33" rows="7" required></textarea>
+            </div>
+            <button>Send</button>
+        </form>
+    </div>
+    <div class="map">
+        <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2959.9052923002705!2d90.42118118043805!3d23.789114508139683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c79da0ef4827%3A0x912431c7e01fc598!2sMir%20Shopnochura!5e0!3m2!1sen!2sbd!4v1710224439924!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</div>
+
+{% endblock %}

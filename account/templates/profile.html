@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<style>
+  .profile-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+  }
+  .profile-image{
+    width: 45%;
+    border-radius: 50%;
+    padding: 20px;
+    margin-left: 100px;
+  }
+  .profile-left{
+    padding: 50px;
+    margin-right: 100px;
+  }
+  .left-btn{
+    padding: 10px 8px;
+    margin-top: 50px;
+    background-color: rgb(20, 129, 156);
+    color: whitesmoke;
+    text-decoration: none;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 7px;
+    margin-right: 15px;
+  }
+  .left-btn:hover{
+    border: 2px solid gray;
+    background-color: whitesmoke;
+    color: rgb(8, 31, 32);
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  }
+  .article-container{
+    width: 100%;
+    height: 120px;
+    padding: 30px;
+    /* border: 1px solid black; */
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    margin-top: 30px;
+  }
+</style>
+
+
+
+
+
+<div class="profile-main container">
+  <div>
+    {% if user.account.image %}
+    <img class="profile-image" src="{{user.account.image.url}}" alt="user-image">
+    {% else %}
+    <img class="profile-image" src="" alt="set-image">
+    {% endif %}
+  </div>
+  <div class="profile-left">
+    <h2>Username : {{user.username}}</h2>
+    <h2>Name : {{user.first_name}} {{user.last_name}}</h2>
+    <h3>{{user.email}}</h3>
+    <div class="mt-4">
+      <a class="left-btn" href="{% url 'update' %}">Edit Profile</a>
+      <a class="left-btn" href="{% url 'set_image' %}">Set Image</a>
+      <a class="left-btn" href="{% url 'changepassword' %}">Change Password</a>
+    </div>
+  </div>
+
+</div>
+
+<hr class="container mt-5 mb-5">
+
+{% if request.user.is_staff or request.user.is_superuser %}
+<div class="container mt-5">
+  <h2 class="text-center mt-5 mb-5">ALL ARTICLES</h2>
+  <hr class="mt-4 mb-4">
+  {% for articles in user_articles %}
+  {% if articles %}
+    <div class="article-container">
+      <p>{{articles.headline | truncatechars:150}}</p>
+      <div>
+        <a class="btn btn-outline-warning btn-sm" href="{% url 'edit_article' articles.id %}">Edit</a>
+        <a class="btn btn-outline-danger btn-sm ms-2" href="{% url 'delete_article' articles.id %}">Delete</a>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

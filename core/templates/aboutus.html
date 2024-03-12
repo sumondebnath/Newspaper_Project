@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .about-container{
+        height: 80vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap:50px;
+    }
+    .about-container img{
+        width: 450px;
+        height: 400px;
+        border-radius: 15px;
+    }
+    .about-container h2{
+        text-align: center;
+        font-style: italic;
+        /* padding-top: 100px; */
+        /* font-size: 25px; */
+        font-style: italic;
+        color: rgb(16, 71, 62);
+    }
+    .about-container p{
+        font-style: italic;
+        padding: 20px;
+    }
+    .about-container .text-div{
+        padding: 100px;
+    }
+</style>
+
+<div class="about-container container">
+    <div>
+        <img src="{% static 'coreimages/new.jpg' %}" alt="">
+    </div>
+    <div class="text-div">
+        <h2>Welcome to <span class="text-success">NEWS HUB</span></h2>
+        <p>Our mission is to serve as a trusted source of information for our readers, fostering a deeper understanding of local, national, and global events. We strive to uphold the principles of journalistic integrity, objectivity, and accountability in all our reporting endeavors.</p>
+    </div>
+</div>
+
+{% endblock %}

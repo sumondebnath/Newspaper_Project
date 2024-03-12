@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import Home
+from core.views import Home, AboutUs, Contact
 from django.conf import settings
 from django.conf.urls.static import static
 # from categories.views import CategoryView
@@ -28,6 +28,8 @@ urlpatterns = [
     path("accounts/", include("account.urls")),
     path("article/", include("article.urls")),
     path("categories/", include("categories.urls")),
+    path("about-us/", AboutUs.as_view(), name="about"),
+    path("contact-us/", Contact.as_view(), name="contact"),
     # path("categories/", CategoryView, name="category"),
     # path("categories/<slug:slug_cate>/", Home, name="category_slug"),
 ]

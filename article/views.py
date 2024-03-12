@@ -9,28 +9,48 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-class ArticleView(View):
-    template_name = "articles.html"
-    # form_class = ArticleForm
-    # success_url = reverse_lazy("home")
-    # def form_valid(self, form):
-    #     form.save()
-    #     print(form.cleaned_data)
-    #     return super().form_valid(form)
+# class ArticleView(View):
+#     template_name = "articles.html"
+#     # form_class = ArticleForm
+#     # success_url = reverse_lazy("home")
+#     # def form_valid(self, form):
+#     #     form.save()
+#     #     print(form.cleaned_data)
+#     #     return super().form_valid(form)
 
-    def get(self, request):
-        form = ArticleForm()
-        return render(request, self.template_name, {"form":form})
+#     def get(self, request):
+#         form = ArticleForm()
+#         return render(request, self.template_name, {"form":form})
     
-    def post(self, request):
-        if request.method == "POST":
-            form = ArticleForm(request.POST)
-            # print(request.POST)
-            if form.is_valid():
-                form.save()
-                print(request.POST)
-                return redirect("home")
-        return render(request, self.template_name, {"form":form})
+#     def post(self, request):
+#         if request.method == "POST":
+#             form = ArticleForm(request.POST)
+#             # print(request.POST)
+#             if form.is_valid():
+#                 print(request.POST)
+#                 form.save(commit=False)
+#                 print(request.POST)
+#                 return redirect("home")
+#         return render(request, self.template_name, {"form":form})
+
+
+def ArticleView(request):
+    if request.method == "POST":
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            # current_user = request.user
+            # form.user = current_user
+            # print(request.POST, form.user)
+            article = form.save(commit=False)
+            article.user = request.user
+            article.save()
+            print(article)
+            return render(request, "articles.html", {"form":form})
+        
+    else:
+        form = ArticleForm()
+    return render(request, "articles.html", {"form":form})
+
 
 
 @login_required
@@ -90,3 +110,6 @@ def DeleteArticle(request, id):
     article = Article.objects.get(pk=id)
     article.delete()
     return redirect("home")
+
+
+

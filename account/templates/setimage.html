@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<style>
+  .image-form{
+    width: 40%;
+    height: 350px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+  .input_section{
+    padding: 5px 15px;
+    background-color: rgb(175, 169, 169);
+    border-radius: 5px;
+  }
+</style>
+
+<div class="container">
+    <div class="image-form">
+      
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
+        <h3 class="text-center">Image</h3>
+        <hr>
+        {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id }}" class="input_title"></label>
+        <br>
+        <input type="{{ field.field.widget.input_type }}"
+               name="{{ field.name }}"
+               class="input_section"
+               {% if field.value %} value="{{ field.value }}"{% endif %}
+               {% if field.field.required %} required {% endif %}>
+        {% if field.errors %}
+          <small class="error">{{ field.errors|striptags }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button class="btn btn-success mt-3 text-center" type="submit">set Image</button>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

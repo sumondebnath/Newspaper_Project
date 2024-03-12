@@ -5,25 +5,20 @@ from article.models import Article, Rating
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ["user", "category", "headline", "body"]
+        fields = ["category", "headline", "body", "image"]
+        widgets = {
+            "category":forms.Select(attrs={"class":"category-container", "placeholder":"Category"}),
+            "headline":forms.TextInput(attrs={"class":"headline-container"}),
+            "body":forms.Textarea(attrs={"class":"body-container"}),
+            "image":forms.FileInput(attrs={"class":"image-container"}),
+        }
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        if commit == True:
-            user.save()
-            category = self.cleaned_data.get("category")
-            headline = self.cleaned_data.get("headline")
-            body = self.cleaned_data.get("body")
-            image = self.cleaned_data.get("image")
-
-            Article.objects.create(
-                user = user,
-                category = category,
-                headline = headline,
-                body = body,
-                image = image,
-            )
-        return user
+    # def save(self, commit=True):
+    #     our_user = super().save(commit=False)
+    #     if commit:
+    #         our_user.user = self.user
+    #         our_user.save()
+    #     return our_user
         
 class ImageForm(forms.ModelForm):
     class Meta:

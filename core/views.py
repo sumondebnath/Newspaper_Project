@@ -16,9 +16,16 @@
 from django.shortcuts import render
 from categories.models import Category
 from article.models import Article
+from django.views.generic import TemplateView
 
 # Create your views here.
 
 def Home(request):
     articles = Article.objects.all()
     return render(request, "index.html", {"articles":articles})
+
+class AboutUs(TemplateView):
+    template_name = "aboutus.html"
+
+class Contact(TemplateView):
+    template_name = "contact.html"
